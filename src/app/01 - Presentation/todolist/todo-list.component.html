@@ -1,0 +1,41 @@
+<div class="p-0 m-0 w-full h-full">
+  <div class="bg-gray-100 flex flex-row w-full justify-between px-4 py-2">
+    <p class="text-lg uppercase font-bold">To do list</p>
+    <button
+      class="self-end bg-gray-400 rounded-md px-2 py-1 hover:bg-gray-500 text-white text-sm"
+      (click)="openDynamicComponent()"
+    >
+      Criar tarefa
+    </button>
+  </div>
+  <hlm-tabs tab="todo" class="block mx-auto" tab="all">
+    <hlm-tabs-list
+      class="w-full flex flex-row"
+      aria-label="tabs example"
+      activeTab="all"
+    >
+      <button hlmTabsTrigger="all" (click)="getAllTodoItems()">All</button>
+      <button hlmTabsTrigger="completed" (click)="getAllTodoItems(1)">
+        Completed
+      </button>
+      <button hlmTabsTrigger="pending" (click)="getAllTodoItems(0)">
+        Pending
+      </button>
+      <button hlmTabsTrigger="overdue" (click)="getAllTodoItems(2)">
+        Overdue
+      </button>
+    </hlm-tabs-list>
+    <div hlmTabsContent="all">
+      <app-table [todoItemsList]="todoItemsList" />
+    </div>
+    <div hlmTabsContent="pending">
+      <app-table [todoItemsList]="todoItemsList" [selectedTab]="0" />
+    </div>
+    <div hlmTabsContent="overdue">
+      <app-table [todoItemsList]="todoItemsList" [selectedTab]="2" />
+    </div>
+    <div hlmTabsContent="completed">
+      <app-table [todoItemsList]="todoItemsList" [selectedTab]="1" />
+    </div>
+  </hlm-tabs>
+</div>

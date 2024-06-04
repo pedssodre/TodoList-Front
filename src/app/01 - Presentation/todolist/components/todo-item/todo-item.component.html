@@ -1,0 +1,94 @@
+<div class="w-80" *ngIf="!isView">
+  <h2 class="font-bold text-lg mb-4">{{ dialogTitle }}</h2>
+  <form [formGroup]="form" class="needs-validation" #formDir="ngForm">
+    <div class="flex flex-col gap-1 mb-2">
+      <label>Title</label>
+      <input
+        type="text"
+        class="border border-grey-500 rounded-sm p-1"
+        formControlName="title"
+      />
+      <span *ngIf="validateField(form, 'title')" class="text-xs text-red-500">
+        Title is required.
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-1 mb-2">
+      <label>Description</label>
+      <textarea
+        class="border border-grey-500 rounded-sm p-1"
+        formControlName="description"
+      ></textarea>
+    </div>
+
+    <div class="flex flex-col gap-1 mb-2">
+      <label>Due Date</label>
+      <input
+        type="date"
+        class="border border-grey-500 rounded-md p-1"
+        formControlName="dueDate"
+      />
+      <span
+        *ngIf="form.get('dueDate')?.hasError('pastDate')"
+        class="text-xs text-red-500"
+      >
+        Due date can't be a past date.
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-1 mb-2">
+      <label>Status</label>
+      <select
+        formControlName="todoItemStatus"
+        class="border border-grey-500 rounded-md p-1"
+      >
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <div class="mt-2 flex justify-center" *ngIf="!showSpinner">
+      <button hlmBtn (click)="onSave()" class="w-full">Salvar</button>
+    </div>
+    <div class="mt-4 flex justify-center" *ngIf="showSpinner">
+      <hlm-spinner/>
+    </div>
+  </form>
+</div>
+
+<div class="w-80" *ngIf="isView">
+  <h2 class="font-bold text-lg mb-4">{{ dialogTitle }}</h2>
+  <div class="flex flex-col gap-1 mb-2">
+    <label class="font-semibold text-sm">Title</label>
+    <p class="text-xs">{{ todoItem.title }}</p>
+  </div>
+
+  <div class="flex flex-col gap-1 mb-2">
+    <label class="font-semibold text-sm">Description</label>
+    <p class="text-xs">{{ todoItem.description }}</p>
+  </div>
+
+  <div class="flex flex-col gap-1 mb-2">
+    <label class="font-semibold text-sm">Due Date</label>
+    <p class="text-xs">{{ todoItem.dueDate | date : "dd/MM/yyyy" }}</p>
+  </div>
+
+  <div class="flex flex-col gap-1 mb-2">
+    <label class="font-semibold text-sm">Status</label>
+    <div class="flex flex-row gap-2 items-center">
+      <span
+        *ngIf="todoItem.todoItemStatus.toString() === 'Completed'"
+        class="w-2 h-2 rounded-full bg-green-500"
+      ></span>
+      <span
+        *ngIf="todoItem.todoItemStatus.toString() === 'Pending'"
+        class="w-2 h-2 rounded-full bg-yellow-500"
+      ></span>
+      <span
+        *ngIf="todoItem.todoItemStatus.toString() === 'Overdue'"
+        class="w-2 h-2 rounded-full bg-red-500"
+      ></span>
+      <p class="mb-1 text-xs">{{ todoItem.todoItemStatus }}</p>
+    </div>
+  </div>
+</div>

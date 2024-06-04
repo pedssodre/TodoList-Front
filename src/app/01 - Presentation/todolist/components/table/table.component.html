@@ -1,0 +1,66 @@
+<hlm-table class="w-full md:min-w-[400px] md:p-4">
+  <hlm-trow class="flex items-center">
+    <hlm-th class="flex-1 font-bold text-default text-xs md:text-base"
+      >Task</hlm-th
+    >
+    <hlm-th
+      class="w-[100px] md:w-40 font-bold text-default text-xs md:text-base"
+      >Due date</hlm-th
+    >
+    <hlm-th class="w-18 md:w-48 font-bold text-default text-xs md:text-base"
+      >Status</hlm-th
+    >
+    <hlm-th class="w-20 font-bold text-default text-xs md:text-base"
+      >Action</hlm-th
+    >
+  </hlm-trow>
+  <hlm-trow *ngFor="let todoItem of todoItemsList" class="py-2">
+    <hlm-th
+      (click)="openDynamicComponent(todoItem, true)"
+      class="flex-1 flex flex-col items-start text-xs md:text-base"
+      ><p
+        class="text-black font-semibold text-sm truncate max-w-[95px] md:max-w-[500px]"
+      >
+        {{ todoItem.title }}
+      </p>
+      <p class="text-xs text-gray-400 truncate max-w-[95px] md:max-w-[500px]">
+        {{ todoItem.description }}
+      </p></hlm-th
+    >
+    <hlm-th class="w-28 md:w-40 text-xs">{{
+      todoItem.dueDate | date : "dd/MM/yyyy"
+    }}</hlm-th>
+    <hlm-th class="w-10 md:w-48 text-xs md:text-sm">
+      <div class="flex flex-row gap-2 items-center">
+        <span
+          *ngIf="todoItem.todoItemStatus.toString() === 'Completed'"
+          class="w-2 h-2 rounded-full bg-green-500"
+        ></span>
+        <span
+          *ngIf="todoItem.todoItemStatus.toString() === 'Pending'"
+          class="w-2 h-2 rounded-full bg-yellow-500"
+        ></span>
+        <span
+          *ngIf="todoItem.todoItemStatus.toString() === 'Overdue'"
+          class="w-2 h-2 rounded-full bg-red-500"
+        ></span>
+        <p class="mb-1 text-xs hidden md:flex">{{ todoItem.todoItemStatus }}</p>
+      </div>
+    </hlm-th>
+    <hlm-th class="text-xs">
+      <div class="flex flex-row gap-2">
+        <button
+          class="border rounded-md px-2 py-1"
+          (click)="openDynamicComponent(todoItem, false)"
+        >
+          <fa-icon [icon]="faEdit"></fa-icon></button
+        ><button
+          class="border rounded-md px-2 py-1"
+          (click)="onDelete(todoItem.id)"
+        >
+          <fa-icon [icon]="faDelete"></fa-icon>
+        </button>
+      </div>
+    </hlm-th>
+  </hlm-trow>
+</hlm-table>
