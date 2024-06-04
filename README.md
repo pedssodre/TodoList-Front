@@ -22,4 +22,8 @@ This project was developed using the [Spartan](https://www.spartan.ng/documentat
 ### Results
 
 ### Web
+![image](https://github.com/pedssodre/TodoList-Front/assets/33165255/dec7a208-acae-4d6c-a66c-455cbfaf1c66)
+
 ### Mobile
+![image](https://github.com/pedssodre/TodoList-Front/assets/33165255/e8292d6a-86cb-42b3-ab54-d7ff4b87b6bd)
+
